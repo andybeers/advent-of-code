@@ -1,0 +1,23 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "description": "ya know just burning CPU cycles in my spare time",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andybeers/advent-of-code.git"
+  },
+  "author": "Andy Beers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andybeers/advent-of-code/issues"
+  },
+  "homepage": "https://github.com/andybeers/advent-of-code#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.11",
+    "typescript": "^4.9.3"
+  }
+}
