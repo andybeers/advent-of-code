@@ -1,28 +1,12 @@
-import { access } from 'fs'
 import { numbers } from '../../utils'
 
 const calories = numbers()
 
-function getHighestCalories() {
-  let highestSeenTotal = 0
-  let currentTotal = 0
-  calories.forEach((entry) => {
-    if (isNaN(entry)) {
-      if (currentTotal > highestSeenTotal) {
-        highestSeenTotal = currentTotal
-      }
-      currentTotal = 0
-    } else {
-      currentTotal += entry
-    }
-  })
-}
-
-function getTopThreeCaloriesSum() {
+function getCaloriesByElf(caloryEntries: Array<number | typeof NaN>) {
   const caloriesByElf: number[] = []
   let elfTotal = 0
 
-  calories.forEach((entry) => {
+  caloryEntries.forEach((entry) => {
     if (isNaN(entry)) {
       caloriesByElf.push(elfTotal)
       elfTotal = 0
@@ -32,6 +16,14 @@ function getTopThreeCaloriesSum() {
   })
 
   return caloriesByElf
+}
+
+function getHighestCalories() {
+  return getCaloriesByElf(calories).sort((a, b) => b - a)[0]
+}
+
+function getTopThreeCaloriesSum() {
+  return getCaloriesByElf(calories)
     .sort((a, b) => b - a)
     .slice(0, 3)
     .reduce((acc, curr) => {
@@ -41,7 +33,7 @@ function getTopThreeCaloriesSum() {
 }
 
 const highestSeenTotal = getHighestCalories()
-const topThreeCaloryTotals = getTopThreeCaloriesSum()
+const topThreeCaloryTotal = getTopThreeCaloriesSum()
 
 console.log({ highestSeenTotal })
-console.log({ topThreeCaloryTotals })
+console.log({ topThreeCaloryTotal })
