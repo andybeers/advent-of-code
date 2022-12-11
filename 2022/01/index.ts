@@ -1,6 +1,6 @@
 import { numbers } from '../../utils'
 
-const calories = numbers()
+const calories = numbers('2022/01/data.txt')
 
 function getCaloriesByElf(caloryEntries: Array<number | typeof NaN>) {
   const caloriesByElf: number[] = []

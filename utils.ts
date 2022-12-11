@@ -1,13 +1,14 @@
 import fs from 'fs'
+import path from 'path'
 
-export function stdin() {
-  return fs.readFileSync('2022/01/data.txt', 'utf-8')
+export function stdin(localPath: string) {
+  return fs.readFileSync(path.resolve(__dirname, localPath), 'utf-8')
 }
 
-export function strings(): string[] {
-  return stdin().split('\n')
+export function strings(localPath: string): string[] {
+  return stdin(localPath).split('\n')
 }
 
-export function numbers() {
-  return strings().map((s) => parseInt(s))
+export function numbers(localPath: string) {
+  return strings(localPath).map((s) => parseInt(s))
 }
