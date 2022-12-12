@@ -17,25 +17,44 @@ function transformDataIntoThreeDimentionalIntegerArray(
   ) as Assignment[]
 }
 
-function areShiftsOverlapping(
-  elf1Sections: Sections,
+const assignments = transformDataIntoThreeDimentionalIntegerArray(rawData)
+
+type OverlapType = 'entire' | 'partial'
+type DoesShiftOverlapProps = {
+  elf1Sections: Sections
   elf2Sections: Sections
-): boolean {
+  overlapType: OverlapType
+}
+
+function doesShiftOverlap({
+  elf1Sections,
+  elf2Sections,
+  overlapType,
+}: DoesShiftOverlapProps): boolean {
+  const indexToCheck = overlapType === 'entire' ? 1 : 0
+
   if (elf1Sections[0] === elf2Sections[0]) {
     return true
   }
   if (elf1Sections[0] > elf2Sections[0]) {
-    return elf2Sections[1] >= elf1Sections[1]
+    return elf2Sections[1] >= elf1Sections[indexToCheck]
   }
-  return elf1Sections[1] >= elf2Sections[1]
+  return elf1Sections[1] >= elf2Sections[indexToCheck]
 }
 
-function getOverlappingShiftCount(): number {
+function getOverlappingShiftCount({
+  overlapType,
+}: {
+  overlapType: OverlapType
+}): number {
   let shiftCount = 0
 
-  const assignments = transformDataIntoThreeDimentionalIntegerArray(rawData)
   assignments.forEach((assignment) => {
-    const isOverlapping = areShiftsOverlapping(assignment[0], assignment[1])
+    const isOverlapping = doesShiftOverlap({
+      elf1Sections: assignment[0],
+      elf2Sections: assignment[1],
+      overlapType,
+    })
     if (isOverlapping) {
       shiftCount++
     }
@@ -44,4 +63,5 @@ function getOverlappingShiftCount(): number {
   return shiftCount
 }
 
-console.log(getOverlappingShiftCount())
+console.log(getOverlappingShiftCount({ overlapType: 'entire' }))
+console.log(getOverlappingShiftCount({ overlapType: 'partial' }))
